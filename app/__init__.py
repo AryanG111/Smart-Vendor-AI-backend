@@ -9,6 +9,9 @@ def create_app(config_class=Config):
 
     # Initialize Extensions
     db.init_app(app)
+    
+    # Import Models to register them with SQLAlchemy
+    from app.models import vendor, performance, feedback
 
     # Import Blueprints
     from app.routes.vendor_routes import vendor_bp
