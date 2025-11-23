@@ -6,10 +6,10 @@ class Vendor(db.Model):
     __tablename__ = 'vendors'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
     category = db.Column(db.String(50), nullable=False, index=True)
     description = db.Column(db.Text, nullable=True)
-    contact_email = db.Column(db.String(100))
+    contact_email = db.Column(db.String(100), unique=True)
     is_active = db.Column(db.Boolean, default=True)
     
     # Storing embedding as a JSON string (e.g., "[0.1, 0.5, ...]")

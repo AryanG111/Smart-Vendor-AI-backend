@@ -58,6 +58,18 @@ class VendorService:
         vendor = Vendor.query.get(vendor_id)
         if not vendor:
             return False
+            
+        # Manually delete related records to avoid IntegrityError
+        # 1. Delete Performance records
+        for perf in vendor.performances:
+            db.session.delete(perf)
+            
+        # 2. Delete Feedback records
+        for feedback in vendor.feedbacks:
+            db.session.delete(feedback)
+            
+        # 3. Delete the Vendor
         db.session.delete(vendor)
         db.session.commit()
         return True
+

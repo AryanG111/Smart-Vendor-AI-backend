@@ -159,6 +159,63 @@
                         }
                     },
                     "response": []
+                },
+                {
+                    "name": "Update Vendor",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"TechSolutions Updated\",\n    \"contact_email\": \"new_email@techsolutions.com\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/vendors/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "vendors",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Vendor",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/vendors/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "vendors",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
                 }
             ]
         },
@@ -291,6 +348,53 @@
                             ],
                             "path": [
                                 "purchase-requests"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get All Requests",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/purchase-requests",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "purchase-requests"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Request by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/purchase-requests/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "purchase-requests",
+                                "1"
                             ]
                         }
                     },
