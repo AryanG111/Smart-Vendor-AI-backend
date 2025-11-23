@@ -1,7 +1,12 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from datetime import datetime
+import logging
 from app.config import Config
 from app.extensions import db
+
+# Configure Logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -11,28 +16,33 @@ def create_app(config_class=Config):
     db.init_app(app)
     
     # Import Models to register them with SQLAlchemy
-    from app.models import vendor, performance, feedback
+    from app.models import vendor, performance, feedback, purchase_request
 
     # Import Blueprints
     from app.routes.vendor_routes import vendor_bp
-    # form app.routes.performance_routes import performance_bp (Implement similarly)
+    from app.routes.performance_routes import performance_bp
+    from app.routes.purchase_routes import purchase_bp
+    from app.routes.feedback_routes import feedback_bp
+    from app.routes.health_routes import health_bp
     
     # Register Blueprints
     app.register_blueprint(vendor_bp)
+    app.register_blueprint(performance_bp)
+    app.register_blueprint(purchase_bp)
+    app.register_blueprint(feedback_bp)
+    app.register_blueprint(health_bp)
     
-    # Health & Readiness Endpoints
-    @app.route('/health', methods=['GET'])
-    def health_check():
-        return jsonify({"status": "healthy", "timestamp": datetime.utcnow()}), 200
+    # Request Logging Hook
+    @app.before_request
+    def log_request_info():
+        if request.path != '/health' and request.path != '/readiness':
+            logger.info(f"Request: {datetime.utcnow()} | {request.method} {request.path} | IP: {request.remote_addr}")
 
-    @app.route('/readiness', methods=['GET'])
-    def readiness_check():
-        try:
-            # Check DB connection
-            db.session.execute('SELECT 1')
-            return jsonify({"status": "ready", "database": "connected"}), 200
-        except Exception as e:
-            return jsonify({"status": "not ready", "error": str(e)}), 503
+    @app.after_request
+    def log_response_info(response):
+        if request.path != '/health' and request.path != '/readiness':
+            logger.info(f"Response: {response.status} | {request.method} {request.path}")
+        return response
 
     # Global Error Handlers
     @app.errorhandler(404)
@@ -47,6 +57,7 @@ def create_app(config_class=Config):
     @app.errorhandler(Exception)
     def handle_exception(e):
         """Handle all other unhandled exceptions"""
+        logger.error(f"Unhandled Exception: {str(e)}", exc_info=True)
         return jsonify({"error": "Unexpected Error", "message": str(e)}), 500
 
     return app

@@ -1,0 +1,314 @@
+{
+    "info": {
+        "_postman_id": "b5a1c2d3-e4f5-6g7h-8i9j-0k1l2m3n4o5p",
+        "name": "SmartVendor AI",
+        "description": "Collection for testing SmartVendor AI Backend API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "System",
+            "item": [
+                {
+                    "name": "Health Check",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/health",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "health"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Readiness Check",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/readiness",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "readiness"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Vendors",
+            "item": [
+                {
+                    "name": "Create Vendor",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"TechSolutions Inc.\",\n    \"category\": \"IT Hardware\",\n    \"description\": \"Leading supplier of high-performance servers and workstations.\",\n    \"contact_email\": \"sales@techsolutions.com\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/vendors",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "vendors"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get All Vendors",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/vendors",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "vendors"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Vendor by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/vendors/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "vendors",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Recommend Vendors",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"category\": \"IT Hardware\",\n    \"description\": \"Need powerful servers for AI training\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/vendors/recommend",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "vendors",
+                                "recommend"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Performance",
+            "item": [
+                {
+                    "name": "Add Performance",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"vendor_id\": 1,\n    \"month_date\": \"2023-10-01\",\n    \"quality_rating\": 9.5,\n    \"timeliness_rating\": 9.0,\n    \"cost_rating\": 8.5\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/performance",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "performance"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Vendor History",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/vendors/1/performance",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "vendors",
+                                "1",
+                                "performance"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Feedback",
+            "item": [
+                {
+                    "name": "Submit Feedback",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"vendor_id\": 1,\n    \"feedback_text\": \"Great service and timely delivery!\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/feedback",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "feedback"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Purchase Requests",
+            "item": [
+                {
+                    "name": "Create Request",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-API-KEY",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"category\": \"IT Hardware\",\n    \"description\": \"Need 50 laptops for new hires\",\n    \"urgency\": \"High\",\n    \"budget\": 50000\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/purchase-requests",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "purchase-requests"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://127.0.0.1:5000",
+            "type": "string"
+        },
+        {
+            "key": "api_key",
+            "value": "my-super-secret-admin-key",
+            "type": "string"
+        }
+    ]
+}
